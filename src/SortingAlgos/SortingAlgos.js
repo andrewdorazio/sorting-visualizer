@@ -37,9 +37,11 @@ const mergeSortHelper = (mainArray, startIndex, endIndex, auxiliaryArray, animat
     console.log(endIndex)
     mergeSortHelper(auxiliaryArray, startIndex, middleIndex, mainArray, animations);
     console.log(auxiliaryArray)
+    console.log(mainArray)
     console.log('running second helper')
     mergeSortHelper(auxiliaryArray, middleIndex + 1, endIndex, mainArray, animations);
     console.log(auxiliaryArray)
+    console.log(mainArray)
     mergeIt(mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, animations);
 }
 
@@ -48,6 +50,8 @@ const mergeIt = (mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, a
     let k = startIndex;
     let i = startIndex;
     let j = middleIndex + 1;
+    console.log(i)
+    console.log(j)
     while ( i <= middleIndex && j <= endIndex ) {
         // We are comparing i and j
         // Push them to change their color
@@ -69,25 +73,17 @@ const mergeIt = (mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, a
         }
     }
     while (i <= middleIndex) {
-        console.log('first animation while loop')
+        console.log('first animation loop')
+        console.log(i)
+        console.log(middleIndex)
         // We are comparing these values an pushing them to change color
-        animations.push([i, i]);
+        animations.push([i, middleIndex + 1]);
         // We are comparing these values and pushing again to change color back
-        animations.push([i, i]);
+        animations.push([i, middleIndex + 1]);
         // We overwrite the value at index k in the original array with
         // the value at index i in the auxiliary array
         animations.push([k, auxiliaryArray[i]]);
         mainArray[k++] = auxiliaryArray[i++];
-    }
-    while (j <= endIndex) {
-        console.log('second animation while loop')
-        // We are comparing these values and pushing them to change color
-        animations.push([j, j]);
-        // Pushing back to revert color
-        animations.push([j, j]);
-        // Overwrite value in the original array with the value in the aux array
-        animations.push([k, auxiliaryArray[j]]);
-        mainArray[k++] = auxiliaryArray[j++];
     }
 }
 

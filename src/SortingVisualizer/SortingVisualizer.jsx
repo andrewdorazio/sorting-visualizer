@@ -9,7 +9,7 @@ const secondaryColor = 'red';
 
 const primaryColor = 'blue';
 
-const animationSpeed = 2; //ms
+const animationSpeed = 1000; //ms
 
 export class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -22,11 +22,11 @@ export class SortingVisualizer extends React.Component {
 
     //On reload of screen: reset the array of bars
     componentDidMount() {
-        this.resetArray();
+        this.generateArray();
     }
 
 
-    resetArray() {
+    generateArray() {
         const array = [];
         //Iterate from 0 to desired number of bars 
         for (let i = 0; i < numberOfBars; i++) {
@@ -134,7 +134,7 @@ export class SortingVisualizer extends React.Component {
                 }}></div>
             ))}
             <div></div>
-            <button onClick={() => this.resetArray()}>Generate New Array</button>
+            <button onClick={() => this.generateArray()}>Generate New Array</button>
             <button onClick={() => this.mergeSort()}>Merge Sort</button>
             <button onClick={() => this.quickSort()}>Quick Sort</button>
             <button onClick={() => this.heapSort()}>Heap Sort</button>
