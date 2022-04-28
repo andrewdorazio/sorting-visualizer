@@ -3,13 +3,13 @@ import './SortingVisualizer.css';
 import { randomInteger } from './Utilities';
 import { quickSort, getMergeSortAnimations, checkArrays } from '../SortingAlgos/SortingAlgos';
 
-const numberOfBars = 250;
+const numberOfBars =10;
 
 const secondaryColor = 'red';
 
 const primaryColor = 'blue';
 
-const animationSpeed = 3; //ms
+const animationSpeed = 2; //ms
 
 export class SortingVisualizer extends React.Component {
     constructor(props) {
