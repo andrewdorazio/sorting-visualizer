@@ -1,15 +1,16 @@
 import React from 'react';
 import './SortingVisualizer.css';
 import { randomInteger } from './Utilities';
-import { quickSort, getMergeSortAnimations, checkArrays } from '../SortingAlgos/SortingAlgos';
+import { getMergeSortAnimations } from '../SortingAlgos/mergesort';
+import { quickSort } from '../SortingAlgos/quicksort';
 
 const numberOfBars =50;
 
-const secondaryColor = 'red';
+const secondaryColor = 'aquamarine';
 
-const primaryColor = 'blue';
+const primaryColor = 'indigo';
 
-const animationSpeed = 1; //ms
+const animationSpeed = 10; //ms
 
 export class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ export class SortingVisualizer extends React.Component {
     }
 
     quickSort() {
-        const quickSortedArray = quickSort(this.state.array, 0, 250);
+        const quickSortedArray = quickSort(this.state.array, 0, numberOfBars);
         console.log(quickSortedArray)
     }
 
@@ -68,57 +69,6 @@ export class SortingVisualizer extends React.Component {
         }
     }
 
-
-    /* My first write up
-    mergeSort() {
-        const animations = getMergeSortAnimations(this.state.array);
-        for (let i = 0; i < animations.length; i++) {
-            const {comparison, swap} = animations[i];
-            setTimeout(() => {
-                const arrayBars = document.getElementsByClassName('bar');
-                arrayBars[comparison[1]].style.backgroundColor = 'red';
-                arrayBars[comparison[0]].style.backgroundColor = 'red';
-                setTimeout(() => {
-                 //   arrayBars[comparison[1]].style.backgroundColor = 'blue';
-                 //   arrayBars[comparison[0]].style.backgroundColor = 'blue';
-                }, (i + 1) * 10);
-            }, i * 10)
-        }
-        
-        // const javaScriptSortedArray = this.state.array.slice().sort((a, b) => a - b);
-        // checkArrays(sortedArray, javaScriptSortedArray);
-    }
-
-    
-
-
-    render() {
-        return (
-            //Map through each value in array, assign the index to key and create a div for each arrayBar value
-            <div className="page">
-                <div className="bar-container">
-                    {this.state.array.map((value, index) => (
-                        <div 
-                        className="bar" 
-                        key={index}
-                        style={{height: `${value/28}em`}}>
-                        </div>
-                    ))}
-                </div>
-                <div>
-                    <button className="bottom-screen" id="quick-sort" onClick={() => this.quickSort()}>Quick Sort</button>
-                    <button className="bottom-screen" id="merge-sort" onClick={() => this.mergeSort()}>Merge Sort</button>
-                    <button className="bottom-screen" id="bubble-sort" onClick={this.bubbleSort}>Bubble Sort</button>
-                    <button className="bottom-screen" id="heap-sort" onClick={this.heapSort}>Heap Sort</button>
-                    <button className="bottom-screen" id="random-sort">Random Sort</button>
-                    <button className="bottom-screen" id="reset" onClick={() => this.resetArray()}>Reset</button>
-                </div>
-            </div>
-        )   
-    }
-    */
-
-
     render() {
         const {array} = this.state;
     
@@ -145,6 +95,4 @@ export class SortingVisualizer extends React.Component {
           </div>
         );
     }
-
-//End of class
 }

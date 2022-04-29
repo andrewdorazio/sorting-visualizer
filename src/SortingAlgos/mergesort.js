@@ -1,5 +1,3 @@
-// Merge Sort
-
 export const getMergeSortAnimations = (array) => {
     // Create animations array
     const animations = [];
