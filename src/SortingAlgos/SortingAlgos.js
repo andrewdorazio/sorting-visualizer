@@ -71,16 +71,18 @@ const mergeIt = (mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, a
             animations.push([k, auxiliaryArray[j]]);
             console.log('overwriting')
             mainArray[k++] = auxiliaryArray[j++];
+            console.log(auxiliaryArray)
+            console.log(mainArray)
         }
     }
     while (i <= middleIndex) {
-        console.log('first animation loop')
+        console.log('overwrite animation loop')
         console.log(i)
-        console.log(middleIndex)
+        console.log(middleIndex + 1)
+        console.log(k)
         // We are comparing these values an pushing them to change color
-        animations.push([i, middleIndex]);
+        animations.push([i, middleIndex + 1]);
         // We are comparing these values and pushing again to change color back
-        let gap = i - middleIndex
         animations.push([i, middleIndex + 1]);
         // We overwrite the value at index k in the original array with
         // the value at index i in the auxiliary array
@@ -88,8 +90,8 @@ const mergeIt = (mainArray, startIndex, middleIndex, endIndex, auxiliaryArray, a
         mainArray[k++] = auxiliaryArray[i++];
     }
     while (j <= endIndex) {
-        console.log('second animation loop')
-        console.log(j)
+        console.log('sorted animation loop')
+        console.log(j - 1)
         console.log(endIndex)
         // We are comparing these values and pushing them to change color
         animations.push([j - 1, endIndex]);
