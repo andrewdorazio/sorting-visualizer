@@ -6,7 +6,7 @@
 
 export const getQuickSortAnimations = (array) => {
     const indexAnimations = [];
-    const lengthAnimations = [];
+    const lengthAnimations = [0];
     quickSort(array, 0, array.length - 1, indexAnimations, lengthAnimations)
     console.log(indexAnimations.slice())
     console.log(lengthAnimations.slice())
@@ -39,6 +39,7 @@ const partition = (array, low, high, indexAnimations, lengthAnimations) => {
         if (array[j] <= pivot) {
             i++;
             [array[i], array[j]] = [array[j], array[i]];
+            lengthAnimations.push(i, j)
             lengthAnimations.push(i, j)
             lengthAnimations.push(array[i], array[j])
         }

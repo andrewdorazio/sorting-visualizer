@@ -54,18 +54,23 @@ export class SortingVisualizer extends React.Component {
         } */
         for ( let i = 0; i < quickSortAnimations.lengthAnimations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
-            const isChangedBar = i % 4 === 0;
-            if (isChangedBar) {
+            const isChangedBar = i % 6 === 0;
+            if (isChangedBar && i !== 0) {
                 setTimeout(() => {
-                    const longBarTurnedShortIndex = i - 3;
-                    const shortBarTurnedLongIndex = i - 2;
+                    console.log(i)
+                    const longBarTurnedShortIndex = quickSortAnimations.lengthAnimations[i - 3];
+                    const shortBarTurnedLongIndex = quickSortAnimations.lengthAnimations[i - 2];
                     const longBarTurnedShortNewHeight = quickSortAnimations.lengthAnimations[i - 1];
                     const shortBarTurnedLongNewHeight = quickSortAnimations.lengthAnimations[i];
+                    console.log(longBarTurnedShortIndex)
+                    console.log(shortBarTurnedLongIndex)
+                    console.log(longBarTurnedShortNewHeight)
+                    console.log(shortBarTurnedLongNewHeight)
                     const barOneStyle = arrayBars[longBarTurnedShortIndex].style;
                     const barTwoStyle = arrayBars[shortBarTurnedLongIndex].style;
                     barOneStyle.height = `${longBarTurnedShortNewHeight/1.5}px`;
                     barTwoStyle.height = `${shortBarTurnedLongNewHeight/1.5}px`;
-                })
+                }, i * animationSpeed);
                 // [quickSortAnimations.lengthAnimations[i], quickSortAnimations.lengthAnimations[i - 1]] = [quickSortAnimations.lengthAnimations[i - 1], quickSortAnimations.lengthAnimations[i]];
             }
         }
