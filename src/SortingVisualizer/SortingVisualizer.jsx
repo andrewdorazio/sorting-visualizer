@@ -2,9 +2,9 @@ import React from 'react';
 import './SortingVisualizer.css';
 import { randomInteger } from './Utilities';
 import { getMergeSortAnimations } from '../SortingAlgos/mergesort';
-import { quickSort } from '../SortingAlgos/quicksort';
+import { getQuickSortAnimations } from '../SortingAlgos/quicksort';
 
-const numberOfBars =50;
+const numberOfBars = 10;
 
 const secondaryColor = 'aquamarine';
 
@@ -41,8 +41,7 @@ export class SortingVisualizer extends React.Component {
     }
 
     quickSort() {
-        const quickSortedArray = quickSort(this.state.array, 0, numberOfBars);
-        console.log(quickSortedArray)
+        getQuickSortAnimations(this.state.array);
     }
 
     mergeSort() {
