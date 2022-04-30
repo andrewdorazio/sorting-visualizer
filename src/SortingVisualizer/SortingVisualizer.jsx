@@ -4,13 +4,13 @@ import { randomInteger } from './Utilities';
 import { getMergeSortAnimations } from '../SortingAlgos/mergesort';
 import { getQuickSortAnimations } from '../SortingAlgos/quicksort';
 
-const numberOfBars = 10;
+const numberOfBars = 100;
 
 const secondaryColor = 'aquamarine';
 
 const primaryColor = 'indigo';
 
-const animationSpeed = 10; //ms
+const animationSpeed = 1; //ms
 
 export class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -43,6 +43,7 @@ export class SortingVisualizer extends React.Component {
     quickSort() {
         const quickSortAnimations = getQuickSortAnimations(this.state.array);
         console.log(this.state.array)
+        let pivotCounter = 2;
     /*    for ( let i = 0; i < quickSortAnimations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const animatedBar = quickSortAnimations[i];
@@ -57,23 +58,52 @@ export class SortingVisualizer extends React.Component {
             const isChangedBar = i % 6 === 0;
             if (isChangedBar && i !== 0) {
                 setTimeout(() => {
-                    console.log(i)
                     const longBarTurnedShortIndex = quickSortAnimations.lengthAnimations[i - 3];
                     const shortBarTurnedLongIndex = quickSortAnimations.lengthAnimations[i - 2];
                     const longBarTurnedShortNewHeight = quickSortAnimations.lengthAnimations[i - 1];
                     const shortBarTurnedLongNewHeight = quickSortAnimations.lengthAnimations[i];
-                    console.log(longBarTurnedShortIndex)
-                    console.log(shortBarTurnedLongIndex)
-                    console.log(longBarTurnedShortNewHeight)
-                    console.log(shortBarTurnedLongNewHeight)
                     const barOneStyle = arrayBars[longBarTurnedShortIndex].style;
                     const barTwoStyle = arrayBars[shortBarTurnedLongIndex].style;
                     barOneStyle.height = `${longBarTurnedShortNewHeight/1.5}px`;
                     barTwoStyle.height = `${shortBarTurnedLongNewHeight/1.5}px`;
                 }, i * animationSpeed);
-                // [quickSortAnimations.lengthAnimations[i], quickSortAnimations.lengthAnimations[i - 1]] = [quickSortAnimations.lengthAnimations[i - 1], quickSortAnimations.lengthAnimations[i]];
+                /*
+                if (quickSortAnimations.pivotChange[i - 2] === true) {
+                    setTimeout(() => {
+                        const pivotIndex = quickSortAnimations.pivotAnimations[pivotCounter - 1];
+                        const pivotLength = quickSortAnimations.pivotAnimations[pivotCounter];
+                        const pivotBarStyle = arrayBars[pivotIndex].style;
+                        pivotBarStyle.height = `${pivotLength/1.5}px`;
+                    }, i * animationSpeed)
+                }
+                */
+            }
+            // Pivot Change
+        /*    // Pivot Change
+            if ( quickSortAnimations.lengthAnimations[i] === 0) {
+                setTimeout(() => {
+                    const pivotIndex = quickSortAnimations.pivotAnimations[pivotCounter - 1];
+                    const pivotLength = quickSortAnimations.pivotAnimations[pivotCounter];
+                    const pivotBarStyle = arrayBars[pivotIndex].style;
+                    pivotBarStyle.height = `${pivotLength/1.5}px`;
+                }, i * animationSpeed)
+                pivotCounter += 2;
+            } */
+        } 
+
+        for ( let i = 0; i < quickSortAnimations.pivotAnimations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isPivotLength = i % 2 === 0;
+            if (isPivotLength && i !== 0) {
+                setTimeout(() => {
+                    const pivotIndex = quickSortAnimations.pivotAnimations[i - 1];
+                    const pivotLength = quickSortAnimations.pivotAnimations[i];
+                    const pivotBarStyle = arrayBars[pivotIndex].style;
+                    pivotBarStyle.height = `${pivotLength/1.5}px`;
+                }, i * animationSpeed)
             }
         }
+
     }
 
     mergeSort() {
