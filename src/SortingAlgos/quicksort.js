@@ -2,6 +2,7 @@
 // low = starting index
 // high = ending index
 // It seems like best would be to seperate the indexAnimations for the pivot points and for the length changes
+// add pivot animation seperate from swapping animation seperate from length changing animation
 
 export const getQuickSortAnimations = (array) => {
     const indexAnimations = [];
@@ -9,7 +10,7 @@ export const getQuickSortAnimations = (array) => {
     quickSort(array, 0, array.length - 1, indexAnimations, lengthAnimations)
     console.log(indexAnimations.slice())
     console.log(lengthAnimations.slice())
-    return indexAnimations;
+    return {lengthAnimations: lengthAnimations, indexAnimations: indexAnimations}
 }
 
 const quickSort = (array, low, high, indexAnimations, lengthAnimations) => {
@@ -27,17 +28,19 @@ const quickSort = (array, low, high, indexAnimations, lengthAnimations) => {
 const partition = (array, low, high, indexAnimations, lengthAnimations) => {
     // Choose rightmost value as pivot
     let pivot = array[high];
-    indexAnimations.push([high])
+  //  indexAnimations.push(high)
     // I is left pointer and starts at -1 so it doesnt skip the first element when swapping
     let i = low - 1;
     // Loop through array, skipping numbers larger than pivot and swapping smaller numbers with the skipped larger numbers
     for (let j = low; j <= high-1; j++) {
         console.log(i)
-        indexAnimations.push([i])
+        // Comparing i + 1 and j so pushing that
+        indexAnimations.push(i + 1, j)
         if (array[j] <= pivot) {
             i++;
             [array[i], array[j]] = [array[j], array[i]];
-            lengthAnimations.push([array[i], array[j]])
+            lengthAnimations.push(i, j)
+            lengthAnimations.push(array[i], array[j])
         }
     }
     // place pivot point used in partition in the correct spot in array
