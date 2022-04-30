@@ -56,7 +56,7 @@ const partition = (array, low, high, pivotAnimations, lengthAnimations, pivotCha
     [array[i + 1], array[high]] = [array[high], array[i + 1]];
 
     // return the pivot point 
-    pivotAnimations.push(i + 1, array[high])
+    pivotAnimations.push(i + 1, array[i + 1], high, array[high])
     return i + 1
 }
 
