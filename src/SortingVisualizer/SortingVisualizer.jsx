@@ -4,7 +4,9 @@ import { randomInteger } from './Utilities';
 import { getMergeSortAnimations } from '../SortingAlgos/mergesort';
 import { getQuickSortAnimations } from '../SortingAlgos/quicksort';
 
-const numberOfBars = 100;
+const numberOfBars = 10;
+
+const pivotColor = 'red';
 
 const secondaryColor = 'aquamarine';
 
@@ -43,7 +45,10 @@ export class SortingVisualizer extends React.Component {
     quickSort() {
         const quickSortAnimations = getQuickSortAnimations(this.state.array);
         console.log(this.state.array);
-        let pivotCounter = 1
+        let pivotCounter = 1;
+        let colorCounter = 1;
+        let isPivotIndex = pivotCounter + 2;
+        let previousPivotIndex = 0;
         /*    for ( let i = 0; i < quickSortAnimations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const animatedBar = quickSortAnimations[i];
@@ -55,8 +60,9 @@ export class SortingVisualizer extends React.Component {
         } */
         for ( let i = 0; i < quickSortAnimations.lengthAnimations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = i % 2 === 0;
             const isChangedBar = i % 6 === 0;
-            if (isChangedBar && i !== 0) {
+            if (isChangedBar && i !== 0 && quickSortAnimations.lengthAnimations[i] !== null) {
                 setTimeout(() => {
                     const longBarTurnedShortIndex = quickSortAnimations.lengthAnimations[i - 3];
                     const shortBarTurnedLongIndex = quickSortAnimations.lengthAnimations[i - 2];
@@ -64,29 +70,40 @@ export class SortingVisualizer extends React.Component {
                     const shortBarTurnedLongNewHeight = quickSortAnimations.lengthAnimations[i];
                     const barOneStyle = arrayBars[longBarTurnedShortIndex].style;
                     const barTwoStyle = arrayBars[shortBarTurnedLongIndex].style;
-                //    let color = secondaryColor;
-                //    barOneStyle.backgroundColor = color;
-                //    barTwoStyle.backgroundColor = color;
                     barOneStyle.height = `${longBarTurnedShortNewHeight}px`;
                     barTwoStyle.height = `${shortBarTurnedLongNewHeight}px`;
-                //    barOneStyle.backgroundColor = color;
-                //    barTwoStyle.backgroundColor = color;
                 }, i * animationSpeed)
-                if (quickSortAnimations.pivotChange[i] === true) {
-                    setTimeout(() => {
-                        const pivotIndex = quickSortAnimations.pivotAnimations[pivotCounter];
-                        const pivotLength = quickSortAnimations.pivotAnimations[pivotCounter + 1];
-                        const swappedIndex = quickSortAnimations.pivotAnimations[pivotCounter + 2];
-                        const swappedLength = quickSortAnimations.pivotAnimations[pivotCounter + 3];
-                     //   arrayBars[pivotIndex].style.backgroundColor = secondaryColor;
-                        arrayBars[pivotIndex].style.height = `${pivotLength}px`
-                     //   arrayBars[swappedIndex].style.backgroundColor = secondaryColor;
-                        arrayBars[swappedIndex].style.height = `${swappedLength}px`
-                    //    const pivotBarStyle = arrayBars[pivotIndex].style;
-                    //    pivotBarStyle.height = `${pivotLength/1.5}px`;
-                    pivotCounter += 4;
-                    }, i * animationSpeed)};
             }
+            if (isChangedBar && quickSortAnimations.pivotChange[i] === true) {
+                setTimeout(() => {
+                    arrayBars[previousPivotIndex].style.backgroundColor = primaryColor;
+                    const pivotBarIndex = quickSortAnimations.pivotAnimations[isPivotIndex];
+                    arrayBars[pivotBarIndex].style.backgroundColor = pivotColor;
+                    previousPivotIndex = pivotBarIndex;
+                    const newPivotIndex = quickSortAnimations.pivotAnimations[pivotCounter];
+                    const pivotLength = quickSortAnimations.pivotAnimations[pivotCounter + 1];
+                    const swappedIndex = quickSortAnimations.pivotAnimations[pivotCounter + 2];
+                    const swappedLength = quickSortAnimations.pivotAnimations[pivotCounter + 3];
+                    arrayBars[newPivotIndex].style.height = `${pivotLength}px`
+                    arrayBars[swappedIndex].style.height = `${swappedLength}px`
+                    console.log(isPivotIndex)
+                    console.log(previousPivotIndex)
+                pivotCounter += 4;
+                isPivotIndex += 4;
+                }, i * animationSpeed)
+            };
+            
+            if (isColorChange && !isChangedBar && quickSortAnimations.lengthAnimations[i] !== 0) {
+                setTimeout(() => {
+                    const barOneIndex = quickSortAnimations.lengthAnimations[i]
+                    const barTwoIndex = quickSortAnimations.lengthAnimations[i - 1]
+                    const color = colorCounter % 2 === 1 ? secondaryColor : primaryColor
+                    arrayBars[barOneIndex].style.backgroundColor = color;
+                    arrayBars[barTwoIndex].style.backgroundColor = color;
+                    colorCounter++;
+                }, i * animationSpeed)
+            };
+        }
             // Pivot Change
         /*    // Pivot Change
             if ( quickSortAnimations.lengthAnimations[i] === 0) {
@@ -98,7 +115,7 @@ export class SortingVisualizer extends React.Component {
                 }, i * animationSpeed)
                 pivotCounter += 2;
             } */
-        } 
+    } 
         /*
         for ( let i = 0; i < quickSortAnimations.pivotAnimations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
@@ -113,7 +130,7 @@ export class SortingVisualizer extends React.Component {
             }
         } */
 
-    }
+
 
     mergeSort() {
         const animations = getMergeSortAnimations(this.state.array);

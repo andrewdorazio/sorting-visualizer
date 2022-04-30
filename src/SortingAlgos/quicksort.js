@@ -17,7 +17,7 @@ export const getQuickSortAnimations = (array) => {
 
 const quickSort = (array, low, high, pivotAnimations, lengthAnimations, pivotChange) => {
     // Check for errors
-    if (low >= high || low < 0) {
+    if (low > high || low < 0) {
         return array;
     }
     // Create pivot index and sort with partition function
@@ -29,18 +29,17 @@ const quickSort = (array, low, high, pivotAnimations, lengthAnimations, pivotCha
 
 const partition = (array, low, high, pivotAnimations, lengthAnimations, pivotChange) => {
     // Choose rightmost value as pivot
-    let pivot = array[high];
+    let pivot = low;
+    let left = low + 1;
+    let right = high;
     pivotChange.pop()
     pivotChange.pop()
     pivotChange.push(true, true)
   //  pivotAnimations.push(high)
     // I is left pointer and starts at -1 so it doesnt skip the first element when swapping
     let i = low - 1;
-    // Loop through array, skipping numbers larger than pivot and swapping smaller numbers with the skipped larger numbers
+    // Loop through array, skipping numbers larger than pivot and swapping smaller numbers with the skipped larger 
     for (let j = low; j <= high-1; j++) {
-    //    console.log(i)
-        // Comparing i + 1 and j so pushing that
-    //    pivotAnimations.push(i + 1, j)
         if (array[j] <= pivot) {
             i++;
             [array[i], array[j]] = [array[j], array[i]];
@@ -49,6 +48,13 @@ const partition = (array, low, high, pivotAnimations, lengthAnimations, pivotCha
             lengthAnimations.push(i, j)
             pivotChange.push(false, false)
             lengthAnimations.push(array[i], array[j])
+            pivotChange.push(false, false)
+        } else {
+            lengthAnimations.push(i, j);
+            lengthAnimations.push(i, j);
+            lengthAnimations.push(null, null);
+            pivotChange.push(false, false)
+            pivotChange.push(false, false)
             pivotChange.push(false, false)
         }
     }
